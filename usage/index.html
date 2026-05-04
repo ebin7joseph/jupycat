@@ -637,76 +637,76 @@
 
 <h1 id="usage">Usage</h1>
 <h2 id="list-all-cells">List all cells</h2>
-<pre><code class="language-bash">$ jupycat notebook.ipynb
-  0 [mark] (a1b2c3d4)  # Data Exploration
-  1 [code] (e5f6g7h8)  import pandas as pd
-  2 [code] (i9j0k1l2)  df = pd.read_csv(&quot;sales.csv&quot;)
-  3 [mark] (m3n4o5p6)  ## Cleaning
-  4 [code] (q7r8s9t0)  df.dropna(inplace=True)
-  5 [code] (u1v2w3x4)  df.describe()
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>jupycat<span class="w"> </span>notebook.ipynb
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="o">[</span>mark<span class="o">]</span><span class="w"> </span><span class="o">(</span>a1b2c3d4<span class="o">)</span><span class="w">  </span><span class="c1"># Data Exploration</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="o">[</span>code<span class="o">]</span><span class="w"> </span><span class="o">(</span>e5f6g7h8<span class="o">)</span><span class="w">  </span>import<span class="w"> </span>pandas<span class="w"> </span>as<span class="w"> </span>pd
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="o">[</span>code<span class="o">]</span><span class="w"> </span><span class="o">(</span>i9j0k1l2<span class="o">)</span><span class="w">  </span><span class="nv">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>pd.read_csv<span class="o">(</span><span class="s2">&quot;sales.csv&quot;</span><span class="o">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="o">[</span>mark<span class="o">]</span><span class="w"> </span><span class="o">(</span>m3n4o5p6<span class="o">)</span><span class="w">  </span><span class="c1">## Cleaning</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="o">[</span>code<span class="o">]</span><span class="w"> </span><span class="o">(</span>q7r8s9t0<span class="o">)</span><span class="w">  </span>df.dropna<span class="o">(</span><span class="nv">inplace</span><span class="o">=</span>True<span class="o">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="o">[</span>code<span class="o">]</span><span class="w"> </span><span class="o">(</span>u1v2w3x4<span class="o">)</span><span class="w">  </span>df.describe<span class="o">()</span>
+</code></pre></div>
 <p>Each line shows: <code>index [type] (cell_id)  first line of source</code></p>
 <h2 id="show-a-specific-cell">Show a specific cell</h2>
-<pre><code class="language-bash">$ jupycat notebook.ipynb 2
-── cell 2 (i9j0k1l2) ──
-df = pd.read_csv(&quot;sales.csv&quot;)
-print(f&quot;Rows: {len(df):,}&quot;)
-df.head()
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">2</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>──<span class="w"> </span>cell<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">(</span>i9j0k1l2<span class="o">)</span><span class="w"> </span>──
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nv">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>pd.read_csv<span class="o">(</span><span class="s2">&quot;sales.csv&quot;</span><span class="o">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>print<span class="o">(</span>f<span class="s2">&quot;Rows: {len(df):,}&quot;</span><span class="o">)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>df.head<span class="o">()</span>
+</code></pre></div>
 <h2 id="show-cell-with-outputs">Show cell with outputs</h2>
-<pre><code class="language-bash">$ jupycat notebook.ipynb 2 -o
-── cell 2 (i9j0k1l2) ──
-df = pd.read_csv(&quot;sales.csv&quot;)
-print(f&quot;Rows: {len(df):,}&quot;)
-df.head()
-
---- output ---
-Rows: 14,832
-   date        product   revenue
-0  2024-01-01  Widget A  1234.56
-1  2024-01-02  Widget B  789.01
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">2</span><span class="w"> </span>-o
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>──<span class="w"> </span>cell<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">(</span>i9j0k1l2<span class="o">)</span><span class="w"> </span>──
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nv">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>pd.read_csv<span class="o">(</span><span class="s2">&quot;sales.csv&quot;</span><span class="o">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>print<span class="o">(</span>f<span class="s2">&quot;Rows: {len(df):,}&quot;</span><span class="o">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>df.head<span class="o">()</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>---<span class="w"> </span>output<span class="w"> </span>---
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>Rows:<span class="w"> </span><span class="m">14</span>,832
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">   </span>date<span class="w">        </span>product<span class="w">   </span>revenue
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="m">0</span><span class="w">  </span><span class="m">2024</span>-01-01<span class="w">  </span>Widget<span class="w"> </span>A<span class="w">  </span><span class="m">1234</span>.56
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="m">1</span><span class="w">  </span><span class="m">2024</span>-01-02<span class="w">  </span>Widget<span class="w"> </span>B<span class="w">  </span><span class="m">789</span>.01
+</code></pre></div>
 <p>The <code>-o</code> flag appends execution outputs (stdout, return values, errors) below the source.</p>
 <h2 id="search-for-a-pattern">Search for a pattern</h2>
-<pre><code class="language-bash">$ jupycat notebook.ipynb -s &quot;def train&quot;
-── cell 7 (z5y4x3w2) ──
-def train_model(X, y):
-    clf = RandomForestClassifier(n_estimators=100)
-    clf.fit(X, y)
-    return clf
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$<span class="w"> </span>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;def train&quot;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>──<span class="w"> </span>cell<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="o">(</span>z5y4x3w2<span class="o">)</span><span class="w"> </span>──
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>def<span class="w"> </span>train_model<span class="o">(</span>X,<span class="w"> </span>y<span class="o">)</span>:
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nv">clf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>RandomForestClassifier<span class="o">(</span><span class="nv">n_estimators</span><span class="o">=</span><span class="m">100</span><span class="o">)</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span>clf.fit<span class="o">(</span>X,<span class="w"> </span>y<span class="o">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span>clf
+</code></pre></div>
 <p>Searches all cell source code and prints matching cells with their index and cell ID.</p>
 <p>Combine with <code>-o</code> to include outputs:</p>
-<pre><code class="language-bash">$ jupycat notebook.ipynb -s &quot;accuracy&quot; -o
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$<span class="w"> </span>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;accuracy&quot;</span><span class="w"> </span>-o
+</code></pre></div>
 <h2 id="extract-images">Extract images</h2>
-<pre><code class="language-bash">$ jupycat notebook.ipynb 5 --img
-/tmp/jupycat_cell5_0.png
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$<span class="w"> </span>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">5</span><span class="w"> </span>--img
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/tmp/jupycat_cell5_0.png
+</code></pre></div>
 <p>Extracts PNG images from cell outputs to files. Prints the path to each extracted image.</p>
 <p>Specify a directory:</p>
-<pre><code class="language-bash">$ jupycat notebook.ipynb 5 --img ./plots
-./plots/jupycat_cell5_0.png
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">5</span><span class="w"> </span>--img<span class="w"> </span>./plots
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>./plots/jupycat_cell5_0.png
+</code></pre></div>
 <p>If no directory is given, images are saved to the OS temp directory.</p>
 <h2 id="fix-missing-cell-ids">Fix missing cell IDs</h2>
-<pre><code class="language-bash">$ jupycat notebook.ipynb --fix-ids
-Fixed 3 cell(s) in notebook.ipynb
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span>--fix-ids
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Fixed<span class="w"> </span><span class="m">3</span><span class="w"> </span>cell<span class="o">(</span>s<span class="o">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>notebook.ipynb
+</code></pre></div>
 <p>Adds IDs to cells that don't have them. Preserves existing IDs. Useful for AI agents (e.g. Claude Code in VSCode) that use <code>NotebookEdit</code> to modify notebooks — <code>NotebookEdit</code> requires cell IDs to target specific cells.</p>
 <p>Cell IDs may be missing in notebooks created by older VSCode Jupyter extensions (nbformat 4.4), classic Jupyter Notebook (pre-7), or AI agents that generate notebook JSON without IDs. Running <code>--fix-ids</code> makes them compatible with modern tooling.</p>
 <p>Safe to run multiple times — only writes when there are cells without IDs.</p>
 <h2 id="command-reference">Command reference</h2>
-<pre><code>jupycat FILE                   list all cells
-jupycat FILE CELL              show cell source
-jupycat FILE CELL -o           show cell source + outputs
-jupycat FILE -s PATTERN        search cells by content
-jupycat FILE -s PATTERN -o     search with outputs
-jupycat FILE CELL --img        extract images to temp dir
-jupycat FILE CELL --img DIR    extract images to DIR
-jupycat FILE --fix-ids         add missing cell IDs
-jupycat -h                     show help
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>jupycat FILE                   list all cells
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>jupycat FILE CELL              show cell source
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>jupycat FILE CELL -o           show cell source + outputs
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>jupycat FILE -s PATTERN        search cells by content
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>jupycat FILE -s PATTERN -o     search with outputs
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>jupycat FILE CELL --img        extract images to temp dir
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>jupycat FILE CELL --img DIR    extract images to DIR
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>jupycat FILE --fix-ids         add missing cell IDs
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>jupycat -h                     show help
+</code></pre></div>
 <table>
 <thead>
 <tr>

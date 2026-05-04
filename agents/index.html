@@ -630,73 +630,73 @@
 <h2 id="claude-code-claudemd">Claude Code (<code>CLAUDE.md</code>)</h2>
 <p>Add to your project's <code>CLAUDE.md</code> or <code>~/.claude/CLAUDE.md</code> for global.</p>
 <h3 id="minimal">Minimal</h3>
-<pre><code class="language-markdown">- use `jupycat` to read Jupyter notebooks instead of `python3 -c` or `Read`:
-  - `jupycat notebook.ipynb` — list cells: `index [type] (cell_id)  first line`
-  - `jupycat notebook.ipynb N` — show cell N source
-  - `jupycat notebook.ipynb N -o` — show cell N source + outputs
-  - `jupycat notebook.ipynb -s &quot;pattern&quot;` — search cell source for pattern
-  - `jupycat notebook.ipynb N --img` — extract images to temp dir
-  - `jupycat notebook.ipynb --fix-ids` — add missing cell IDs (required by NotebookEdit in VSCode agents)
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">-</span><span class="w"> </span>use <span class="sb">`jupycat`</span> to read Jupyter notebooks instead of <span class="sb">`python3 -c`</span> or <span class="sb">`Read`</span>:
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb`</span> — list cells: <span class="sb">`index [type] (cell_id)  first line`</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb N`</span> — show cell N source
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb N -o`</span> — show cell N source + outputs
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb -s &quot;pattern&quot;`</span> — search cell source for pattern
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb N --img`</span> — extract images to temp dir
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb --fix-ids`</span> — add missing cell IDs (required by NotebookEdit in VSCode agents)
+</code></pre></div>
 <h3 id="full">Full</h3>
-<pre><code class="language-markdown"># Jupyter Notebooks
-
-- always read cell outputs when reading jupyter notebooks
-- use `jupycat` to read Jupyter notebooks instead of `python3 -c` or `Read`:
-  - `jupycat notebook.ipynb` — list cells: `index [type] (cell_id)  first line`
-  - `jupycat notebook.ipynb N` — show cell N source
-  - `jupycat notebook.ipynb N -o` — show cell N source + outputs
-  - `jupycat notebook.ipynb -s &quot;pattern&quot;` — search cell source for pattern
-  - `jupycat notebook.ipynb N --img` — extract images to temp dir
-  - `jupycat notebook.ipynb --fix-ids` — add missing cell IDs (required by NotebookEdit in VSCode agents)
-
-## Workflow
-
-1. Run `jupycat notebook.ipynb` to see all cells at a glance
-2. Use cell index or search to find the cell you need
-3. Use `-o` to see outputs — don't skip this for data analysis notebooks
-4. Use `--img` to extract plots, then `Read` the image file to view it
-5. Before using `NotebookEdit` (VSCode AI agents), run `--fix-ids` if cells lack IDs
-6. Use the cell ID from jupycat output when calling `NotebookEdit`
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gh"># Jupyter Notebooks</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">-</span><span class="w"> </span>always read cell outputs when reading jupyter notebooks
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">-</span><span class="w"> </span>use <span class="sb">`jupycat`</span> to read Jupyter notebooks instead of <span class="sb">`python3 -c`</span> or <span class="sb">`Read`</span>:
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb`</span> — list cells: <span class="sb">`index [type] (cell_id)  first line`</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb N`</span> — show cell N source
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb N -o`</span> — show cell N source + outputs
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb -s &quot;pattern&quot;`</span> — search cell source for pattern
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb N --img`</span> — extract images to temp dir
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb --fix-ids`</span> — add missing cell IDs (required by NotebookEdit in VSCode agents)
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="gu">## Workflow</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="k">1.</span> Run <span class="sb">`jupycat notebook.ipynb`</span> to see all cells at a glance
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="k">2.</span> Use cell index or search to find the cell you need
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="k">3.</span> Use <span class="sb">`-o`</span> to see outputs — don&#39;t skip this for data analysis notebooks
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="k">4.</span> Use <span class="sb">`--img`</span> to extract plots, then <span class="sb">`Read`</span> the image file to view it
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="k">5.</span> Before using <span class="sb">`NotebookEdit`</span> (VSCode AI agents), run <span class="sb">`--fix-ids`</span> if cells lack IDs
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="k">6.</span> Use the cell ID from jupycat output when calling <span class="sb">`NotebookEdit`</span>
+</code></pre></div>
 <h3 id="permissions">Permissions</h3>
 <p>Add to <code>.claude/settings.local.json</code> to auto-allow:</p>
-<pre><code class="language-json">{
-  &quot;permissions&quot;: {
-    &quot;allow&quot;: [&quot;Bash(jupycat:*)&quot;]
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;allow&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Bash(jupycat:*)&quot;</span><span class="p">]</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span>
+</code></pre></div>
 <h2 id="cursor-cursorrules">Cursor (<code>.cursorrules</code>)</h2>
-<pre><code class="language-markdown"># Jupyter Notebooks
-
-When working with Jupyter notebooks (.ipynb files), use the `jupycat` CLI tool:
-
-- `jupycat notebook.ipynb` — list all cells with index, type, cell ID, and first line
-- `jupycat notebook.ipynb N` — show source of cell N
-- `jupycat notebook.ipynb N -o` — show source + outputs of cell N
-- `jupycat notebook.ipynb -s &quot;pattern&quot;` — search cell source for a pattern
-- `jupycat notebook.ipynb N --img` — extract images from cell N to temp dir
-- `jupycat notebook.ipynb --fix-ids` — add missing cell IDs
-
-Do NOT read .ipynb files directly — they are JSON and waste tokens.
-Always check outputs with `-o` when analyzing data notebooks.
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gh"># Jupyter Notebooks</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>When working with Jupyter notebooks (.ipynb files), use the <span class="sb">`jupycat`</span> CLI tool:
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb`</span> — list all cells with index, type, cell ID, and first line
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb N`</span> — show source of cell N
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb N -o`</span> — show source + outputs of cell N
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb -s &quot;pattern&quot;`</span> — search cell source for a pattern
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb N --img`</span> — extract images from cell N to temp dir
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">-</span><span class="w"> </span><span class="sb">`jupycat notebook.ipynb --fix-ids`</span> — add missing cell IDs
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>Do NOT read .ipynb files directly — they are JSON and waste tokens.
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>Always check outputs with <span class="sb">`-o`</span> when analyzing data notebooks.
+</code></pre></div>
 <h2 id="codex-agentsmd-codexmd">Codex (<code>AGENTS.md</code> / <code>codex.md</code>)</h2>
-<pre><code class="language-markdown"># Jupyter Notebooks
-
-Use `jupycat` to read .ipynb files. Do not parse notebook JSON directly.
-
-Commands:
-  jupycat FILE              list cells: index [type] (cell_id) first_line
-  jupycat FILE N            show cell N
-  jupycat FILE N -o         show cell N with outputs
-  jupycat FILE -s PATTERN   search cell source
-  jupycat FILE N --img      extract images to /tmp
-  jupycat FILE --fix-ids    add missing cell IDs
-
-Always use -o when inspecting data analysis or model training cells.
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gh"># Jupyter Notebooks</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Use <span class="sb">`jupycat`</span> to read .ipynb files. Do not parse notebook JSON directly.
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>Commands:
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  jupycat FILE              list cells: index [type] (cell_id) first_line
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>  jupycat FILE N            show cell N
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  jupycat FILE N -o         show cell N with outputs
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>  jupycat FILE -s PATTERN   search cell source
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>  jupycat FILE N --img      extract images to /tmp
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>  jupycat FILE --fix-ids    add missing cell IDs
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>Always use -o when inspecting data analysis or model training cells.
+</code></pre></div>
 
 
 
