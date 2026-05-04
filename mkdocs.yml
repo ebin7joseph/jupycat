@@ -5,6 +5,7 @@ repo_url: https://github.com/ebin7joseph/jupycat
 
 theme:
   name: material
+  custom_dir: overrides
   logo: assets/jupycat-dark.png
   favicon: assets/jupycat-dark.png
   features:
