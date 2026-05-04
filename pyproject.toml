@@ -22,8 +22,8 @@ classifiers = [
 ]
 
 [project.urls]
-Repository = "https://github.com/ebinjoseph/jupycat"
-Documentation = "https://github.com/ebinjoseph/jupycat/tree/main/docs"
+Repository = "https://github.com/ebin7joseph/jupycat"
+Documentation = "https://github.com/ebin7joseph/jupycat/tree/main/docs"
 
 [project.scripts]
 jupycat = "jupycat.cli:main"

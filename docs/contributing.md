@@ -3,7 +3,7 @@
 ## Setup
 
 ```bash
-git clone https://github.com/ebinjoseph/jupycat
+git clone https://github.com/ebin7joseph/jupycat
 cd jupycat
 pip install -e .
 ```
