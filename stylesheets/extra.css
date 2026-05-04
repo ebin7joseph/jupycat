@@ -4,3 +4,18 @@
   border: none;
   box-shadow: none;
 }
+
+.md-sidebar--primary .md-sidebar__scrollwrap::before {
+  content: "";
+  display: block;
+  height: 120px;
+  margin: 0.6rem 0.6rem 0.8rem;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: contain;
+  background-image: url("../assets/jupycat.png");
+}
+
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-sidebar__scrollwrap::before {
+  background-image: url("../assets/jupycat-dark.png");
+}
