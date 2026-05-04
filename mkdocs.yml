@@ -1,5 +1,6 @@
 site_name: Jupycat
 site_description: cat for Jupyter notebooks
+site_url: https://ebin7joseph.github.io/jupycat/
 repo_url: https://github.com/ebin7joseph/jupycat
 
 theme:
