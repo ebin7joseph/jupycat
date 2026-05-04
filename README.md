@@ -1,10 +1,10 @@
-<div align="center">
-
-![jupycat](docs/assets/jupycat.png)
-
-</div>
-
 # jupycat
+
+[![PyPI](https://img.shields.io/pypi/v/jupycat.svg)](https://pypi.org/project/jupycat/)
+[![Python](https://img.shields.io/pypi/pyversions/jupycat.svg)](https://pypi.org/project/jupycat/)
+[![Tests](https://github.com/ebin7joseph/jupycat/actions/workflows/test.yml/badge.svg)](https://github.com/ebin7joseph/jupycat/actions/workflows/test.yml)
+[![Docs](https://github.com/ebin7joseph/jupycat/actions/workflows/docs.yml/badge.svg)](https://ebin7joseph.github.io/jupycat/)
+[![License](https://img.shields.io/pypi/l/jupycat.svg)](https://github.com/ebin7joseph/jupycat/blob/main/LICENSE)
 
 `cat` for Jupyter notebooks. Read cells, outputs, and images from the command line.
 
