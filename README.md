@@ -1,3 +1,9 @@
+<div align="center">
+
+![jupycat](docs/assets/jupycat.png)
+
+</div>
+
 # jupycat
 
 `cat` for Jupyter notebooks. Read cells, outputs, and images from the command line.

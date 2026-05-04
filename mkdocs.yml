@@ -5,6 +5,8 @@ repo_url: https://github.com/ebin7joseph/jupycat
 
 theme:
   name: material
+  logo: assets/jupycat-dark.png
+  favicon: assets/jupycat-dark.png
   features:
     - content.code.copy
   palette:
@@ -24,6 +26,7 @@ extra_css:
 
 markdown_extensions:
   - admonition
+  - attr_list
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
