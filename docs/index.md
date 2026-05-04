@@ -13,59 +13,44 @@ $ jupycat notebook.ipynb
 
 ## Why?
 
-Jupyter notebooks are JSON files. Reading them with `cat`, `grep`, or `head` gives you escaped newlines, base64 blobs, and metadata noise. `jupycat` gives you the actual code.
+Jupyter notebooks are JSON files. Reading them with `cat`, `grep`, or `head` gives you escaped newlines, base64 blobs, and metadata noise.
 
-```
-┌─────────────────────────────────────────────┐
-│  cat notebook.ipynb                         │
-│  → 500 lines of JSON you can't read         │
-│                                             │
-│  jupycat notebook.ipynb 3                   │
-│  → the actual Python code in cell 3         │
-└─────────────────────────────────────────────┘
-```
+| Command | Result |
+| --- | --- |
+| `cat notebook.ipynb` | 500 lines of JSON you can't read |
+| `jupycat notebook.ipynb 3` | the actual Python code in cell 3 |
 
 ## The AI agent problem
 
-AI coding agents (Claude Code, Cursor, Codex) run in terminals — no Jupyter UI. When they encounter a `.ipynb` file, they have to deal with raw JSON:
+AI coding agents (Claude Code, Cursor, Codex) run in terminals — no Jupyter UI. When they encounter a `.ipynb` file, they have to deal with raw JSON.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Problem 1: Token waste                                     │
-│                                                             │
-│  Agent reads notebook.ipynb → 50KB of JSON with base64      │
-│  images, metadata, execution counts, output MIME types...   │
-│  The actual code is maybe 2KB buried in there.              │
-├─────────────────────────────────────────────────────────────┤
-│  Problem 2: No cell awareness                               │
-│                                                             │
-│  Agent sees a flat JSON blob. It can't easily:              │
-│  - jump to cell N                                           │
-│  - search across cells                                      │
-│  - see which cell produced which output                     │
-├─────────────────────────────────────────────────────────────┤
-│  Problem 3: Hacky workarounds                               │
-│                                                             │
-│  Agent runs python3 -c "import json; ..."                   │
-│  → arbitrary code execution just to read a file             │
-│  → different hack every time, wastes context                │
-│  → no permission safety (unlike Bash(jupycat:*))            │
-└─────────────────────────────────────────────────────────────┘
-```
+!!! warning "Problem 1 — Token waste"
+    The agent reads `notebook.ipynb` and gets 50 KB of JSON with base64 images, metadata, execution counts, and output MIME types. The actual code is maybe 2 KB buried in there.
 
-`jupycat` solves all three:
+!!! warning "Problem 2 — No cell awareness"
+    The agent sees a flat JSON blob. It can't easily:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  jupycat notebook.ipynb          → cell overview in 3 lines │
-│  jupycat notebook.ipynb 5 -o    → just cell 5 + its output │
-│  jupycat notebook.ipynb -s "fit"→ find the training cell    │
-│  jupycat notebook.ipynb 7 --img → extract plot for viewing  │
-│  jupycat notebook.ipynb --fix-ids → enable NotebookEdit     │
-│                                                             │
-│  ✓ Minimal tokens   ✓ Cell-aware   ✓ Safe to auto-allow    │
-└─────────────────────────────────────────────────────────────┘
-```
+    - jump to cell N
+    - search across cells
+    - see which cell produced which output
+
+!!! warning "Problem 3 — Hacky workarounds"
+    The agent falls back to `python3 -c "import json; ..."`:
+
+    - arbitrary code execution just to read a file
+    - a different hack every time, wasting context
+    - no permission safety (unlike `Bash(jupycat:*)`)
+
+!!! success "How jupycat solves it"
+    | Command | What it does |
+    | --- | --- |
+    | `jupycat notebook.ipynb` | cell overview in 3 lines |
+    | `jupycat notebook.ipynb 5 -o` | just cell 5 + its output |
+    | `jupycat notebook.ipynb -s "fit"` | find the training cell |
+    | `jupycat notebook.ipynb 7 --img` | extract plot for viewing |
+    | `jupycat notebook.ipynb --fix-ids` | enable `NotebookEdit` |
+
+    Minimal tokens · cell-aware · safe to auto-allow.
 
 ## Install
 
