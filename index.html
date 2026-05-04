@@ -51,6 +51,8 @@
       
     
     
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -599,63 +601,96 @@
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  4 [code] (q7r8s9t0)  df.describe()
 </code></pre></div>
 <h2 id="why">Why?</h2>
-<p>Jupyter notebooks are JSON files. Reading them with <code>cat</code>, <code>grep</code>, or <code>head</code> gives you escaped newlines, base64 blobs, and metadata noise. <code>jupycat</code> gives you the actual code.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>┌─────────────────────────────────────────────┐
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│  cat notebook.ipynb                         │
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│  → 500 lines of JSON you can&#39;t read         │
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│                                             │
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│  jupycat notebook.ipynb 3                   │
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│  → the actual Python code in cell 3         │
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>└─────────────────────────────────────────────┘
-</code></pre></div>
+<p>Jupyter notebooks are JSON files. Reading them with <code>cat</code>, <code>grep</code>, or <code>head</code> gives you escaped newlines, base64 blobs, and metadata noise.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cat notebook.ipynb</code></td>
+<td>500 lines of JSON you can't read</td>
+</tr>
+<tr>
+<td><code>jupycat notebook.ipynb 3</code></td>
+<td>the actual Python code in cell 3</td>
+</tr>
+</tbody>
+</table>
 <h2 id="the-ai-agent-problem">The AI agent problem</h2>
-<p>AI coding agents (Claude Code, Cursor, Codex) run in terminals — no Jupyter UI. When they encounter a <code>.ipynb</code> file, they have to deal with raw JSON:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>┌─────────────────────────────────────────────────────────────┐
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│  Problem 1: Token waste                                     │
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│                                                             │
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│  Agent reads notebook.ipynb → 50KB of JSON with base64      │
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│  images, metadata, execution counts, output MIME types...   │
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│  The actual code is maybe 2KB buried in there.              │
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>├─────────────────────────────────────────────────────────────┤
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│  Problem 2: No cell awareness                               │
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│                                                             │
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>│  Agent sees a flat JSON blob. It can&#39;t easily:              │
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│  - jump to cell N                                           │
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>│  - search across cells                                      │
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>│  - see which cell produced which output                     │
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>├─────────────────────────────────────────────────────────────┤
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>│  Problem 3: Hacky workarounds                               │
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>│                                                             │
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>│  Agent runs python3 -c &quot;import json; ...&quot;                   │
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>│  → arbitrary code execution just to read a file             │
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>│  → different hack every time, wastes context                │
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>│  → no permission safety (unlike Bash(jupycat:*))            │
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>└─────────────────────────────────────────────────────────────┘
-</code></pre></div>
-<p><code>jupycat</code> solves all three:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>┌─────────────────────────────────────────────────────────────┐
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│  jupycat notebook.ipynb          → cell overview in 3 lines │
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>│  jupycat notebook.ipynb 5 -o    → just cell 5 + its output │
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>│  jupycat notebook.ipynb -s &quot;fit&quot;→ find the training cell    │
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>│  jupycat notebook.ipynb 7 --img → extract plot for viewing  │
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│  jupycat notebook.ipynb --fix-ids → enable NotebookEdit     │
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│                                                             │
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│  ✓ Minimal tokens   ✓ Cell-aware   ✓ Safe to auto-allow    │
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>└─────────────────────────────────────────────────────────────┘
-</code></pre></div>
+<p>AI coding agents (Claude Code, Cursor, Codex) run in terminals — no Jupyter UI. When they encounter a <code>.ipynb</code> file, they have to deal with raw JSON.</p>
+<div class="admonition warning">
+<p class="admonition-title">Problem 1 — Token waste</p>
+<p>The agent reads <code>notebook.ipynb</code> and gets 50 KB of JSON with base64 images, metadata, execution counts, and output MIME types. The actual code is maybe 2 KB buried in there.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Problem 2 — No cell awareness</p>
+<p>The agent sees a flat JSON blob. It can't easily:</p>
+<ul>
+<li>jump to cell N</li>
+<li>search across cells</li>
+<li>see which cell produced which output</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Problem 3 — Hacky workarounds</p>
+<p>The agent falls back to <code>python3 -c "import json; ..."</code>:</p>
+<ul>
+<li>arbitrary code execution just to read a file</li>
+<li>a different hack every time, wasting context</li>
+<li>no permission safety (unlike <code>Bash(jupycat:*)</code>)</li>
+</ul>
+</div>
+<div class="admonition success">
+<p class="admonition-title">How jupycat solves it</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jupycat notebook.ipynb</code></td>
+<td>cell overview in 3 lines</td>
+</tr>
+<tr>
+<td><code>jupycat notebook.ipynb 5 -o</code></td>
+<td>just cell 5 + its output</td>
+</tr>
+<tr>
+<td><code>jupycat notebook.ipynb -s "fit"</code></td>
+<td>find the training cell</td>
+</tr>
+<tr>
+<td><code>jupycat notebook.ipynb 7 --img</code></td>
+<td>extract plot for viewing</td>
+</tr>
+<tr>
+<td><code>jupycat notebook.ipynb --fix-ids</code></td>
+<td>enable <code>NotebookEdit</code></td>
+</tr>
+</tbody>
+</table>
+<p>Minimal tokens · cell-aware · safe to auto-allow.</p>
+</div>
 <h2 id="install">Install</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span>jupycat
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>jupycat
 </code></pre></div>
 <p><strong>Zero dependencies.</strong> Uses only Python standard library.</p>
 <p><strong>Requires:</strong> Python 3.8+</p>
 <h2 id="quick-start">Quick start</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w">              </span><span class="c1"># list all cells</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">5</span><span class="w">            </span><span class="c1"># show cell 5</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">5</span><span class="w"> </span>-o<span class="w">         </span><span class="c1"># show cell 5 with outputs</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;def foo&quot;</span><span class="w"> </span><span class="c1"># search cell source for pattern</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">7</span><span class="w"> </span>--img<span class="w">      </span><span class="c1"># extract images to default temp dir of OS</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">7</span><span class="w"> </span>--img<span class="w"> </span>.<span class="w">    </span><span class="c1"># extract images to current directory</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span>--fix-ids<span class="w">    </span><span class="c1"># add missing cell IDs</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w">              </span><span class="c1"># list all cells</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">5</span><span class="w">            </span><span class="c1"># show cell 5</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">5</span><span class="w"> </span>-o<span class="w">         </span><span class="c1"># show cell 5 with outputs</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;def foo&quot;</span><span class="w"> </span><span class="c1"># search cell source for pattern</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">7</span><span class="w"> </span>--img<span class="w">      </span><span class="c1"># extract images to default temp dir of OS</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span><span class="m">7</span><span class="w"> </span>--img<span class="w"> </span>.<span class="w">    </span><span class="c1"># extract images to current directory</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>jupycat<span class="w"> </span>notebook.ipynb<span class="w"> </span>--fix-ids<span class="w">    </span><span class="c1"># add missing cell IDs</span>
 </code></pre></div>
 <h2 id="license">License</h2>
 <p>MIT</p>

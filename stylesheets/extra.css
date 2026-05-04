@@ -1,0 +1,6 @@
+.md-typeset .highlight,
+.md-typeset pre > code,
+.md-typeset code {
+  border: none;
+  box-shadow: none;
+}
