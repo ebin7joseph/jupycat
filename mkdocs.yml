@@ -1,0 +1,24 @@
+site_name: Jupycat
+site_description: cat for Jupyter notebooks
+repo_url: https://github.com/ebinjoseph/jupycat
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - AI Agents: ai-agents.md
+  - Example Configs: agents.md
+  - Contributing: contributing.md
