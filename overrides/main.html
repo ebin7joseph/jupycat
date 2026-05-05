@@ -2,7 +2,7 @@
 
 {% block extrahead %}
   <meta name="google-site-verification" content="TKPa6dahWH8y5U5fiJBGJ7oFYZO8ncH2Aoy2oWN04as">
-  {% set social_image = config.site_url ~ "assets/social-preview.png" %}
+  {% set social_image = config.site_url ~ "assets/social-card.png" %}
   {% set is_home = page is none or page.url in ("", "/", "index.html") %}
   {% set page_title = config.site_name if is_home else (page.title ~ " — " ~ config.site_name) %}
   {% set page_desc = page.meta.description if (page and page.meta and page.meta.description) else config.site_description %}
